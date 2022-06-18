@@ -123,10 +123,19 @@ function clock() {
 
         if (settings.time.values[0].name === "12h") {
             const hours = today.getHours();
-            if (hours <= 12)
-                timeText.text = `${zeroPad(today.getHours(), "00")} : ${zeroPad(today.getMinutes(), "00")} AM`;
-            else
-                timeText.text = `${zeroPad(today.getHours() % 12, "00")} : ${zeroPad(today.getMinutes(), "00")} PM`;
+            const minutes = today.getMinutes();
+            if(hours == 0){
+                timeText.text = `${zeroPad(12, "00")} : ${zeroPad(minutes, "00")} AM`;
+            }
+            else if(hours == 12){
+                timeText.text = `${zeroPad(hours, "00")} : ${zeroPad(minutes, "00")} PM`;
+            }
+            else if (hours <= 11){
+                timeText.text = `${zeroPad(hours, "00")} : ${zeroPad(minutes, "00")} AM`;
+            }
+            else{
+                timeText.text = `${zeroPad(hours % 12, "00")} : ${zeroPad(minutes, "00")} PM`;
+            }
         }
         else
             timeText.text = `${zeroPad(today.getHours(), "00")} : ${zeroPad(today.getMinutes(), "00")}`;
